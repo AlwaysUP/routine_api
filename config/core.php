@@ -4,8 +4,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
  
 // home page url
-$home_url="http://localhost/api/";
-// $home_url="https://workout.buzztrench.com/api/";
+// $home_url="http://localhost/api/";
+$home_url="https://routine.buzztrench.com/api/";
  
 // page given in URL parameter, default page is one
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
