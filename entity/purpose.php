@@ -68,7 +68,7 @@ class Purpose{
                 WHERE p.id = ?";
     
         // prepare query statement
-        $callToDb = $this->conn->prepare( $query );
+        $callToDb = $this->connection->prepare( $query );
     
         // bind id of product to be updated
         $callToDb->bindParam(1, $this->id);
