@@ -47,6 +47,51 @@ class Day{
         
     }
 
+    function getId(){
+        return $this->connection->lastInsertId();
+    }
+
+    function read(){
+
+        //return all rows
+        $query = "SELECT * FROM "
+                    . $this->table_name . "
+                    ORDER BY name";
+
+        $callToDb = $this->connection->prepare( $query );
+        $callToDb->execute();
+
+        return $callToDb;
+
+    }
+
+    
+    // read for one routine
+    function readOne($routineId){
+    
+        // query to read single record
+        $query = "SELECT *
+                FROM
+                    " . $this->table_name . "
+                WHERE routine_id = ?";
+    
+        // prepare query statement
+        $callToDb = $this->connection->prepare( $query );
+    
+        // bind id of product to be updated
+        $callToDb->bindParam(1, $routineId);
+    
+        // execute query
+        $callToDb->execute();
+        return $callToDb;
+        // // get retrieved row
+        // $row = $callToDb->fetch(PDO::FETCH_ASSOC);
+    
+        // // set values to object properties
+        // $this->name = $row['name'];
+        // $this->description = $row['description'];
+    }
+
     // update the day
     function update(){
     
@@ -54,9 +99,7 @@ class Day{
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    name = :name,
-                    routine_id = :routine_id,
-                    sets = :purpose_id
+                    name=:name, routine_id=:routine_id, sets=:sets
                 WHERE
                     id = :id";
     
@@ -67,11 +110,13 @@ class Day{
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->routine_id=htmlspecialchars(strip_tags($this->routine_id));
         $this->sets=htmlspecialchars(strip_tags($this->sets));
-    
-        // bind new values
-        $callToDb->bindParam(':name', $this->name);
-        $callToDb->bindParam(':routine_id', $this->routine_id);
-        $callToDb->bindParam(':sets', $this->sets);
+        $this->id=htmlspecialchars(strip_tags($this->id));
+
+        // bind values
+        $callToDb->bindParam(":name", $this->name);
+        $callToDb->bindParam(":routine_id", $this->routine_id);
+        $callToDb->bindParam(":sets", $this->sets);
+        $callToDb->bindParam(":id", $this->id);
     
         // execute the query
         if($callToDb->execute()){

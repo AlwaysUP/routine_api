@@ -10,7 +10,7 @@ class Set{
     public $name;
     public $reps;
     public $tempo;
-    public $day_id;
+    public $days_id;
  
     // constructor with $db as database connection
     public function __construct($db){
@@ -24,7 +24,7 @@ class Set{
         $query = "INSERT INTO
                     " . $this->table_name . "
                 SET
-                    name=:name, reps=:reps, tempo=:tempo, day_id=:day_id";
+                    name=:name, reps=:reps, tempo=:tempo, days_id=:days_id";
     
         // prepare query
         $callToDb = $this->connection->prepare($query);
@@ -33,13 +33,13 @@ class Set{
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->reps=htmlspecialchars(strip_tags($this->reps));
         $this->tempo=htmlspecialchars(strip_tags($this->tempo));
-        $this->day_id=htmlspecialchars(strip_tags($this->day_id));
+        $this->days_id=htmlspecialchars(strip_tags($this->days_id));
     
         // bind values
         $callToDb->bindParam(":name", $this->name);
         $callToDb->bindParam(":reps", $this->reps);
         $callToDb->bindParam(":tempo", $this->tempo);
-        $callToDb->bindParam(":day_id", $this->day_id);
+        $callToDb->bindParam(":days_id", $this->days_id);
     
         // execute query
         if($callToDb->execute()){
@@ -49,6 +49,48 @@ class Set{
         return false;
         
     }
+
+    function read(){
+
+        //return all rows
+        $query = "SELECT * FROM "
+                    . $this->table_name . "
+                    ORDER BY name";
+
+        $callToDb = $this->connection->prepare( $query );
+        $callToDb->execute();
+
+        return $callToDb;
+
+    }
+
+    
+    // read for one day
+    function readOne($dayId){
+    
+        // query to read single record
+        $query = "SELECT *
+                FROM
+                    " . $this->table_name . "
+                WHERE days_id = ?";
+    
+        // prepare query statement
+        $callToDb = $this->connection->prepare( $query );
+    
+        // bind id of product to be updated
+        $callToDb->bindParam(1, $dayId);
+    
+        // execute query
+        $callToDb->execute();
+        return $callToDb;
+        // // get retrieved row
+        // $row = $callToDb->fetch(PDO::FETCH_ASSOC);
+    
+        // // set values to object properties
+        // $this->name = $row['name'];
+        // $this->description = $row['description'];
+    }
+
 
     // update the set
     function update(){
@@ -60,7 +102,7 @@ class Set{
                     name = :name,
                     reps = :reps,
                     tempo = :tempo,
-                    day_id = :purpose_id
+                    days_id = :purpose_id
                 WHERE
                     id = :id";
     
@@ -71,14 +113,14 @@ class Set{
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->reps=htmlspecialchars(strip_tags($this->reps));
         $this->tempo=htmlspecialchars(strip_tags($this->tempo));
-        $this->day_id=htmlspecialchars(strip_tags($this->day_id));
+        $this->days_id=htmlspecialchars(strip_tags($this->days_id));
         $this->id=htmlspecialchars(strip_tags($this->id));
     
         // bind new values
         $callToDb->bindParam(":name", $this->name);
         $callToDb->bindParam(":reps", $this->reps);
         $callToDb->bindParam(":tempo", $this->tempo);
-        $callToDb->bindParam(":day_id", $this->day_id);
+        $callToDb->bindParam(":days_id", $this->days_id);
         $callToDb->bindParam(":id", $this->id);
     
         // execute the query

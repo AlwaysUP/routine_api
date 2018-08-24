@@ -40,7 +40,7 @@ class Routine{
         $callToDb->bindParam(":description", $this->description);
         $callToDb->bindParam(":purpose_id", $this->purpose_id);
         $callToDb->bindParam(":days", $this->days);
-    
+
         // execute query
         if($callToDb->execute()){
             return true;
@@ -48,6 +48,78 @@ class Routine{
     
         return false;
         
+    }
+
+    function getId(){
+        return $this->connection->lastInsertId();
+    }
+
+    function read(){
+
+        //return all rows
+        $query = "SELECT * FROM "
+                    . $this->table_name . "
+                    ORDER BY name";
+
+        $callToDb = $this->connection->prepare( $query );
+        $callToDb->execute();
+
+        return $callToDb;
+
+    }
+    
+    // read one routine
+    function readOne(){
+    
+        // query to read single record
+        $query = "SELECT *
+                FROM
+                    " . $this->table_name . "
+                WHERE id = ?";
+    
+        // prepare query statement
+        $callToDb = $this->connection->prepare( $query );
+    
+        // bind id of product to be updated
+        $callToDb->bindParam(1, $this->id);
+    
+        // execute query
+        $callToDb->execute();
+    
+        // get retrieved row
+        $row = $callToDb->fetch(PDO::FETCH_ASSOC);
+    
+        // set values to object properties
+        $this->name = $row['name'];
+        $this->description = $row['description'];
+    }
+
+    function search($keywords){
+        // select all query
+        $query = "SELECT
+                *
+            FROM
+                " . $this->table_name . "
+            WHERE
+                name LIKE ? OR description LIKE ?
+            ORDER BY
+                name ASC";
+
+        // prepare query statement
+        $callToDb = $this->connection->prepare($query);
+
+        // sanitize
+        $keywords=htmlspecialchars(strip_tags($keywords));
+        $keywords = "%{$keywords}%";
+
+        // bind
+        $callToDb->bindParam(1, $keywords);
+        $callToDb->bindParam(2, $keywords);
+
+        // execute query
+        $callToDb->execute();
+
+        return $callToDb;
     }
 
     // update the routine

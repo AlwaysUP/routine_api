@@ -58,7 +58,7 @@ class Purpose{
     }
 
     
-    // used when filling up the update product form
+    // read specific purpose
     function readOne(){
     
         // query to read single record
@@ -93,7 +93,7 @@ class Purpose{
             WHERE
                 name LIKE ? OR description LIKE ?
             ORDER BY
-                name DESC";
+                name ASC";
 
         // prepare query statement
         $callToDb = $this->connection->prepare($query);
@@ -116,22 +116,22 @@ class Purpose{
     function update(){
     
         // update query
-        $query = "UPDATE
-                    " . $this->table_name . "
+        $query = "UPDATE 
+                    " . $this->table_name . " 
                 SET
                     name = :name,
-                    description = :description,
+                    description = :description
                 WHERE
                     id = :id";
     
         // prepare query statement
         $callToDb = $this->connection->prepare($query);
-    
+        
         // sanitize
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->description=htmlspecialchars(strip_tags($this->description));
         $this->id=htmlspecialchars(strip_tags($this->id));
-    
+
         // bind new values
         $callToDb->bindParam(':name', $this->name);
         $callToDb->bindParam(':description', $this->description);
@@ -141,7 +141,7 @@ class Purpose{
         if($callToDb->execute()){
             return true;
         }
-    
+        
         return false;
     }
 
