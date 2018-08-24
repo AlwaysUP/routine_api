@@ -18,9 +18,7 @@ $db = $database->getConnection();
 $purpose = new Purpose($db);
  
 // get posted data
-$data = file_get_contents("php://input");
- 
-var_dump($data);
+$data = json_decode(file_get_contents("php://input"));
 
 // set purpose property values
 $purpose->name = $data->name;
