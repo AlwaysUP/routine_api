@@ -65,7 +65,7 @@ class Purpose{
         $query = "SELECT *
                 FROM
                     " . $this->table_name . "
-                WHERE p.id = ?";
+                WHERE id = ?";
     
         // prepare query statement
         $callToDb = $this->connection->prepare( $query );
@@ -91,9 +91,9 @@ class Purpose{
             FROM
                 " . $this->table_name . "
             WHERE
-                p.name LIKE ? OR p.description LIKE ?
+                name LIKE ? OR description LIKE ?
             ORDER BY
-                p.name DESC";
+                name DESC";
 
         // prepare query statement
         $callToDb = $this->connection->prepare($query);
