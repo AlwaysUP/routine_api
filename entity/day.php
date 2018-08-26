@@ -65,31 +65,50 @@ class Day{
 
     }
 
-    
-    // read for one routine
-    function readOne($routineId){
+    //read for one day
+    function readOneRoutine($routineId){
+        
+        //return all rows with that routineId Id
+        $query = "SELECT * FROM "
+                    . $this->table_name . "
+                    WHERE routine_id = ?
+                    ORDER BY name";
+
+        $callToDb = $this->connection->prepare( $query );
+
+        // bind id of product to be updated
+        $callToDb->bindParam(1, $routineId);
+
+        $callToDb->execute();
+
+        return $callToDb;
+    }
+
+    // read for one day
+    function readOne($dayId){
     
         // query to read single record
         $query = "SELECT *
                 FROM
                     " . $this->table_name . "
-                WHERE routine_id = ?";
+                WHERE id = ?";
     
         // prepare query statement
         $callToDb = $this->connection->prepare( $query );
     
         // bind id of product to be updated
-        $callToDb->bindParam(1, $routineId);
+        $callToDb->bindParam(1, $dayId);
     
         // execute query
         $callToDb->execute();
-        return $callToDb;
-        // // get retrieved row
-        // $row = $callToDb->fetch(PDO::FETCH_ASSOC);
+
+        // get retrieved row
+        $row = $callToDb->fetch(PDO::FETCH_ASSOC);
     
-        // // set values to object properties
-        // $this->name = $row['name'];
-        // $this->description = $row['description'];
+        // set values to object properties
+        $this->name = $row['name'];
+        $this->routine_id = $row['routine_id'];
+        $this->sets = $row['sets'];
     }
 
     // update the day

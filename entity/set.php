@@ -65,30 +65,51 @@ class Set{
     }
 
     
+    //read for one day
+    function readOneDay($dayId){
+        
+        //return all rows with that routineId Id
+        $query = "SELECT * FROM "
+                    . $this->table_name . "
+                    WHERE days_id = ?
+                    ORDER BY name";
+
+        $callToDb = $this->connection->prepare( $query );
+
+        // bind id of product to be updated
+        $callToDb->bindParam(1, $dayId);
+
+        $callToDb->execute();
+
+        return $callToDb;
+    }
+
     // read for one day
-    function readOne($dayId){
+    function readOne($setId){
     
         // query to read single record
         $query = "SELECT *
                 FROM
                     " . $this->table_name . "
-                WHERE days_id = ?";
+                WHERE id = ?";
     
         // prepare query statement
         $callToDb = $this->connection->prepare( $query );
     
         // bind id of product to be updated
-        $callToDb->bindParam(1, $dayId);
+        $callToDb->bindParam(1, $setId);
     
         // execute query
         $callToDb->execute();
-        return $callToDb;
-        // // get retrieved row
-        // $row = $callToDb->fetch(PDO::FETCH_ASSOC);
+
+        // get retrieved row
+        $row = $callToDb->fetch(PDO::FETCH_ASSOC);
     
-        // // set values to object properties
-        // $this->name = $row['name'];
-        // $this->description = $row['description'];
+        // set values to object properties
+        $this->name = $row['name'];
+        $this->reps = $row['reps'];
+        $this->tempo = $row['tempo'];
+        $this->days_id = $row['days_id'];
     }
 
 
