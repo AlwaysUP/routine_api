@@ -27,6 +27,7 @@ $routine->readOne();
 $routine_arr = array(
     "id" =>  $routine->id,
     "name" => $routine->name,
+    "purpose_id" => $purpose_id,
     "description" => $routine->description,
 );
 

@@ -27,7 +27,7 @@ $routine->id = $data->id;
 $routine->name = $data->name;
 $routine->description = $data->description;
 $routine->days = $data->days;
-$routine->purpose_id = $routine->purpose_id;
+$routine->purpose_id = $data->purpose_id;
  
 // update the routine
 if($routine->update()){

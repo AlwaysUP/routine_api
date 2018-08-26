@@ -27,7 +27,7 @@ $set->id = $data->id;
 $set->name = $data->name;
 $set->reps = $data->reps;
 $set->tempo = $data->tempo;
-$set->days_id = $set->days_id;
+$set->days_id = $data->days_id;
  
 // update the set
 if($set->update()){

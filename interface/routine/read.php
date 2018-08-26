@@ -35,6 +35,7 @@ if($num>0){
         $routine_item=array(
             "id" => $id,
             "name" => $name,
+            "purpose_id" => $purpose_id,
             "description" => html_entity_decode($description),
         );
  
