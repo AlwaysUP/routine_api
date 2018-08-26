@@ -41,7 +41,7 @@ if($routine->create()){
         $day->sets = $day_arr[$i]->sets;
 
         if($day->create()){
-            echo ',"Day": {';
+            echo ',"Day'.$j.'": {';
                 echo '"message": "Day was created."';
             echo '}';
             $set_arr = (array) $day_arr[$i]->set;
@@ -53,19 +53,19 @@ if($routine->create()){
                 $set->tempo = $set_arr[$j]->tempo;
                 $set->days_id = $day->getId();       
                 if($set->create()){
-                    echo ',"Set": {';
+                    echo ',"Set'.$j.'": {';
                         echo '"message": "Set was created."';
                     echo '}';
                 }
                 else{
-                    echo ',"Set": {';
+                    echo ',"Set'.$j.'": {';
                         echo '"message": "Unable to create Set."';
                     echo '}';
                 }
             }
         }
         else{
-            echo ',"Day": {';
+            echo ',"Day'.$j.'": {';
                 echo '"message": "Unable to create Day."';
             echo '}';
         }
