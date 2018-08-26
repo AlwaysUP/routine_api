@@ -33,7 +33,7 @@ if($routine->create()){
     echo '{';
         echo '"message": "routine was created."';
     $day_arr = (array) $data->day;
-    for ($i=0; $i < $data->days; $i++){
+    for ($i=0; $i <= count($day_arr); $i++){
         $day = new Day($db);
         // set routine property values
         $day->name = $day_arr[$i]->name;
@@ -45,7 +45,7 @@ if($routine->create()){
                 echo '"message": "Day was created."';
             echo '}';
             $set_arr = (array) $day_arr[$i]->set;
-            for ($j=0; $j < count($set_arr); $j++){
+            for ($j=0; $j <= count($set_arr); $j++){
                 $set = new Set($db);
                 // set routine property values
                 $set->name = $set_arr[$j]->name;
