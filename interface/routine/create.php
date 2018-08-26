@@ -41,7 +41,7 @@ if($routine->create()){
         $day->sets = $day_arr[$i]->sets;
 
         if($day->create()){
-            echo ',"Day'.$j.'": {';
+            echo ',"Day'.$i.'": {';
                 echo '"message": "Day was created."';
             echo '}';
             $set_arr = (array) $day_arr[$i]->set;
@@ -65,7 +65,7 @@ if($routine->create()){
             }
         }
         else{
-            echo ',"Day'.$j.'": {';
+            echo ',"Day'.$i.'": {';
                 echo '"message": "Unable to create Day."';
             echo '}';
         }
