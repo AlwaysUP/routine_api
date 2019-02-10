@@ -7,7 +7,7 @@ This is a REST API for workout routines
 Routine (Please see source code for other objects):
 
     Create: POST
-        request: https://routine.buzztrench.com/api/interface/routine/create.php
+        request: localhost/path/to//interface/routine/create.php
         ```
         {
             "name": "Test Workout4",
@@ -92,7 +92,7 @@ Routine (Please see source code for other objects):
         ```
     
     Delete: POST
-    request: https://routine.buzztrench.com/api/interface/routine/delete.php
+    request: localhost/path/to//interface/routine/delete.php
     ```
     {
         "id": 1
@@ -105,7 +105,7 @@ Routine (Please see source code for other objects):
     }
     ```
     Read: Get
-        request: https://routine.buzztrench.com/api/interface/routine/read.php
+        request: localhost/path/to//interface/routine/read.php
         response:
         ```
         {
@@ -174,7 +174,7 @@ Routine (Please see source code for other objects):
         ```
     
     Read One: Get
-        request: https://routine.buzztrench.com/api/interface/routine/read_one.php?id=17
+        request: localhost/path/to//interface/routine/read_one.php?id=17
         response:
         ```
         {
@@ -191,7 +191,7 @@ Routine (Please see source code for other objects):
         }
         ```
     Search: GET
-        request: https://routine.buzztrench.com/api/interface/routine/search.php?s=4
+        request: localhost/path/to//interface/routine/search.php?s=4
         response:
         ```
         {
@@ -210,7 +210,7 @@ Routine (Please see source code for other objects):
         }
         ```
     Update: POST
-        request: https://routine.buzztrench.com/api/interface/routine/update.php
+        request: localhost/path/to//interface/routine/update.php
         ```
         {
             "id": 25,
@@ -229,6 +229,6 @@ Routine (Please see source code for other objects):
 
 ---
 
-You can interact with the website here:
+You can interact with the sample website here:
 
 https://routine.buzztrench.com
