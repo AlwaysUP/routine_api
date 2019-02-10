@@ -4,8 +4,8 @@ class Database{
     // specify your own database credentials
     private $host = "localhost";
     private $db_name = "workout";
-    private $username = "root";
-    private $password = "";
+    private $username = "user";
+    private $password = "pass";
     public $connection;
  
     // get the database connection
